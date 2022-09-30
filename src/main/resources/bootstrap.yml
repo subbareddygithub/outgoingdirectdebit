@@ -1,0 +1,82 @@
+management: 
+  endpoint: 
+    metrics: 
+      enabled: true
+    prometheus: 
+      enabled: true
+  endpoints: 
+    web: 
+      exposure: 
+        include: "*"
+  metrics: 
+    export: 
+      prometheus: 
+        enabled: true
+spring: 
+  application: 
+    name: outgoingdirectdebit
+  cloud: 
+    config: 
+      failFast: false
+      retry: 
+        maxAttempts: 20
+      uri: ${CONFIG_SERVER_URI}
+  profiles: 
+    active: ${PROFILE:dev}
+  sleuth: 
+    sampler: 
+      percentage: 1
+  api: 
+    ach operations: 
+      context-path: /ACHOperations/{achoperationsId}/Update
+      hosturl: /test
+      jolt-filename: ACH Operations291618-jolt.json
+    corporate current account: 
+      context-path: /CorporateCurrentAccount/Initiate
+      hosturl: /test
+      jolt-filename: Corporate Current Account143848-jolt.json
+    correspondent bank operations: 
+      context-path: /CorrespondentBankOperations/Initiate
+      hosturl: /test
+      jolt-filename: Correspondent Bank Operations511644-jolt.json
+    customer agreement: 
+      context-path: /CustomerAgreement/Evaluate
+      hosturl: /test
+      jolt-filename: Customer Agreement298691-jolt.json
+    direct debit: 
+      context-path: /DirectDebit/{directdebitId}/Control
+      hosturl: /test
+      jolt-filename: Direct Debit451720-jolt.json
+    financial gateway: 
+      context-path: /FinancialGateway/Initiate
+      hosturl: /test
+      jolt-filename: Financial Gateway272148-jolt.json
+    internal bank account: 
+      context-path: /InternalBankAccount/{internalbankaccountId}/Capture
+      hosturl: /test
+      jolt-filename: Internal Bank Account891783-jolt.json
+    payment execution: 
+      context-path: /PaymentExecution/Initiate
+      hosturl: /test
+      jolt-filename: Payment Execution562882-jolt.json
+    payment initiation: 
+      context-path: /PaymentInitiation/Initiate
+      hosturl: /test
+      jolt-filename: Payment Initiation506263-jolt.json
+    payment order: 
+      context-path: /PaymentOrder/Initiate
+      hosturl: /test
+      jolt-filename: Payment Order834975-jolt.json
+    position keeping: 
+      context-path: /PositionKeeping/Initiate
+      hosturl: /test
+      jolt-filename: Position Keeping564140-jolt.json
+    regulatory compliance: 
+      context-path: /RegulatoryCompliance/Evaluate
+      hosturl: /test
+      jolt-filename: Regulatory Compliance700378-jolt.json
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${mysql_pwd}
+    url: jdbc:mysql://${mysql_url}:3306/camunda
+    username: ${mysql_user}
